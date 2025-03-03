@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { submitComplaint, resetStatus } from "../redux/complaintSlice";
+import InputText from "../components/form/InputText";
+import Input from "../components/form/Input";
+import InputSelect from "../components/form/InputSelect";
+import TextArea from "../components/form/TextArea";
 
 const ComplaintForm = () => {
   const dispatch = useDispatch();
@@ -71,7 +75,6 @@ const ComplaintForm = () => {
       [name]: type === "checkbox" ? checked : value,
     }));
 
-    // Clear validation error when typing
     if (validationErrors[name]) {
       setValidationErrors((prev) => ({
         ...prev,
@@ -103,7 +106,6 @@ const ComplaintForm = () => {
     }
   };
 
-  // Reset form after successful submission
   useEffect(() => {
     if (status === "succeeded") {
       setFormData({
@@ -133,7 +135,6 @@ const ComplaintForm = () => {
         tamko: false,
       });
 
-      // Reset status after 5 seconds
       const timer = setTimeout(() => {
         dispatch(resetStatus());
       }, 5000);
@@ -161,187 +162,78 @@ const ComplaintForm = () => {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="space-y-1">
-          <label htmlFor="name" className="block text-gray-700 font-medium ">
-            Jina Kamili
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className={
-              "w-full p-1 border rounded focus:outline-none focus:ring-2"
-            }
-            required
-          />
-        </div>
+        <InputText
+          label="Jina Kamili"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+        />
 
-        <div className="space-y-1">
-          <label htmlFor="place" className="block text-gray-700 font-medium">
-            Mkoa/Wilaya Anayotoka
-          </label>
-          <input
-            type="text"
-            id="place"
-            name="place"
-            value={formData.place}
-            onChange={handleChange}
-            className={
-              "w-full p-1 border rounded focus:outline-none focus:ring-2"
-            }
-            required
-          />
-        </div>
+        <InputText
+          label="Mkoa/Wilaya"
+          name="place"
+          value={formData.place}
+          onChange={handleChange}
+        />
 
-        <div className="space-y-1">
-          <label htmlFor="work" className="block text-gray-700 font-medium ">
-            Taaluma/Kazi
-          </label>
-          <input
-            type="text"
-            id="work"
-            name="work"
-            value={formData.work}
-            onChange={handleChange}
-            className={
-              "w-full p-1 border rounded focus:outline-none focus:ring-2"
-            }
-            required
-          />
-        </div>
+        <InputText
+          label="Taaluma / Kazi"
+          name="work"
+          value={formData.work}
+          onChange={handleChange}
+        />
 
-        <div className="space-y-1">
-          <label htmlFor="phone" className="block text-gray-700 font-medium">
-            Namba ya Simu
-          </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            className={
-              "w-full p-1 border rounded focus:outline-none focus:ring-2"
-            }
-            required
-          />
-        </div>
+        <Input
+          label="Namba ya Simu"
+          name="phone"
+          type="tel"
+          value={formData.phone}
+          onChange={handleChange}
+        />
 
-        <div className="space-y-1">
-          <label htmlFor="email" className="block text-gray-700 font-medium">
-            Barua Pepe
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className={
-              "w-full p-1 border rounded focus:outline-none focus:ring-2"
-            }
-            required
-          />
-        </div>
+        <Input
+          label="Barua Pepe"
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+        />
 
-        <div className="space-y-1">
-          <label
-            htmlFor="news_type"
-            className="block text-gray-700 font-medium"
-          >
-            Aina ya Habari Inayolalamikiwa
-          </label>
-          <select
-            name="news_type"
-            className="w-full p-1 border rounded focus:outline-none focus:ring-2"
-            onChange={handleChange}
-          >
-            <option value="">Chagua Aina ya Habari</option>
-            <option value="Makala">Makala</option>
-            <option value="Habari za Runinga">Habari za Runinga</option>
-            <option value="Habari za Redio">Habari za Redio</option>
-            <option value="Habari za Mitandao ya Kijamii">
-              Habari za Mitandao ya Kijamii
-            </option>
-            <option value="Picha / Video">Picha / Video</option>
-          </select>
-        </div>
+        <InputSelect
+          label="Aina ya Habari Inayolalamikiwa"
+          name="news_type"
+          value={formData.value}
+          onChange={handleChange}
+        />
 
-        <div className="space-y-1">
-          <label
-            htmlFor="media_outlet"
-            className="block text-gray-700 font-medium"
-          >
-            Chombo cha Habari Kilichochapisha/Kurusha Habari
-          </label>
-          <input
-            type="text"
-            id="media_outlet"
-            name="media_outlet"
-            value={formData.media_outlet}
-            onChange={handleChange}
-            className={
-              "w-full p-1 border rounded focus:outline-none focus:ring-2"
-            }
-            required
-          />
-        </div>
+        <InputText
+          label="Chombo cha Habari Kilichochapisha/Kurusha Habari"
+          name="media_outlet"
+          value={formData.media_outlet}
+          onChange={handleChange}
+        />
 
-        <div className="space-y-1">
-          <label htmlFor="date" className="block text-gray-700 font-medium">
-            Tarehe Iliyochapishwa/Kurushwa Hewa
-          </label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            className="w-full p-1 border rounded focus:outline-none focus:ring-2"
-          />
-        </div>
+        <Input
+          label="Tarehe Iliyochapishwa/Kurushwa Hewa"
+          type="date"
+          name="date"
+          value={formData.date}
+          onChange={handleChange}
+        />
 
-        <div className="space-y-1">
-          <label
-            htmlFor="media_url"
-            className="block text-gray-700 font-medium"
-          >
-            Kiungo (URL) cha Habari (ikiwa ipo mtandaoni)
-          </label>
-          <input
-            type="text"
-            id="media_url"
-            name="media_url"
-            value={formData.media_url}
-            onChange={handleChange}
-            className={
-              "w-full p-1 border rounded focus:outline-none focus:ring-2"
-            }
-            required
-          />
-        </div>
+        <InputText
+          label="Kiungo (URL) cha Habari (ikiwa ipo mtandaoni)"
+          name="media_url"
+          value={formData.media_outlet}
+          onChange={handleChange}
+        />
 
-        <div className="space-y-1">
-          <label
-            htmlFor="news_title"
-            className="block text-gray-700 font-medium"
-          >
-            Kichwa cha Habari / Mada Kuu
-          </label>
-          <input
-            type="text"
-            id="news_title"
-            name="news_title"
-            value={formData.news_title}
-            onChange={handleChange}
-            className={
-              "w-full p-1 border rounded focus:outline-none focus:ring-2"
-            }
-            required
-          />
-        </div>
+        <InputText
+          label="Kichwa cha Habari / Mada Kuu"
+          name="news_title"
+          value={formData.news_title}
+          onChange={handleChange}
+        />
 
         <div className="space-y-1">
           <label className="block text-gray-700 font-medium ">
@@ -401,22 +293,12 @@ const ComplaintForm = () => {
           </div>
         </div>
 
-        <div className="space-y-1">
-          <label
-            htmlFor="explanation"
-            className="block text-gray-700 font-medium"
-          >
-            Maelezo ya Malalamiko
-          </label>
-          <textarea
-            id="explanation"
-            name="explanation"
-            className="w-full border rounded p-2"
-            maxLength={1000}
-            value={formData.explanation}
-            onChange={handleChange}
-          ></textarea>
-        </div>
+        <TextArea
+          label="Maelezo ya Malalamiko"
+          name="explanation"
+          value={formData.explanation}
+          onChange={handleChange}
+        />
 
         <div className="space-y-1">
           <label className="block text-gray-700 font-medium">

@@ -6,7 +6,6 @@ import {
   useLocation,
 } from "react-router-dom";
 import ComplaintForm from "./pages/ComplaintForm";
-import ComplaintsListPage from "./pages/ComplaintsListPage";
 import Dashboard from "./pages/Dashboard";
 import Navbar from "./components/Navbar";
 
